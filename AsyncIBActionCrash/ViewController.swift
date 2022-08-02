@@ -18,22 +18,26 @@ class ViewController: UIViewController {
         
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(observerNotification(_:)),
+            selector: #selector(asyncFunction),
             name: .AsyncNotification,
             object: nil
         )
     }
 
     @IBAction func ibActionButtonPressed() async {
-        
+        // Crash when called
     }
     
     @IBAction func notificationButtonPressed() {
         NotificationCenter.default.post(name: .AsyncNotification, object: nil)
     }
     
-    @objc func observerNotification(_ notification: Notification) async {
-        
+    @IBAction func performSelectorButtonPressed() {
+        performSelector(onMainThread: #selector(asyncFunction), with: nil, waitUntilDone: false)
+    }
+    
+    @objc func asyncFunction() async {
+        // Crash when called
     }
     
 }
